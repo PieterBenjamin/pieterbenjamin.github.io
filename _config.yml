@@ -3,7 +3,7 @@ title: Pieter Benjamin
 email: pieter0benjamin@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   About Me!
-baseurl: "/arctic-fox-theme" # the subpath of your site, e.g. /blog/
+baseurl: "/personal-website" # the subpath of your site, e.g. /blog/
 url: "http://pieterBenjamin.github.io" # the base hostname & protocol for your site
 twitter_username:
 github_username: PieterBenjamin
