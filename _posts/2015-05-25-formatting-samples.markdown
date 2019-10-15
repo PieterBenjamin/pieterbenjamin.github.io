@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "Formatting Samples"
 date: 2015-05-25
 categories:
@@ -50,8 +50,8 @@ Or leave it empty and use the [link text itself]
 Some text to show that the reference links can follow later.
 
 [arbitrary case-insensitive reference text]: https://www.mozilla.org
-[1]: http://slashdot.org
-[link text itself]: http://www.reddit.com
+[1]: https://slashdot.org
+[link text itself]: https://www.reddit.com
 
 
 
