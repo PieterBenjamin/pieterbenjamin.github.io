@@ -1,15 +1,14 @@
 # Site settings
-title: Arctic Fox
-email: 
+title: Pieter Benjamin
+email: pieter0benjamin@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Jekyll Theme Demo
+  About Me!
 baseurl: "/arctic-fox-theme" # the subpath of your site, e.g. /blog/
-url: "http://diezcami.github.io" # the base hostname & protocol for your site
-twitter_username: username
-github_username: username
+url: "http://pieterBenjamin.github.io" # the base hostname & protocol for your site
+twitter_username:
+github_username: PieterBenjamin
 
 # Build settings
-markdown: redcarpet
 markdown_ext:  markdown,mkdown,mkdn,mkd,md
 
 redcarpet:
