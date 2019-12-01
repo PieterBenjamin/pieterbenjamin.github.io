@@ -25,13 +25,13 @@ simplified things, and allowed us to make use of OOP for our type system. We use
 differentiate between Objects and Primitives. The (written in Java) inheritance tree is shown below:
 _"Semantic" prefix included to avoid collisions with Java_
 
-| _SemanticType_ (abstract)     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| _SemanticPrimitive_ (abstract)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| SemanticBoolean  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| SemanticInteger  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| _SemanticObject_ (abstract)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| SemanticIntegerArray  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| SemanticClass  
+SemanticType_ (abstract)     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticPrimitive_ (abstract)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticBoolean  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticInteger  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_SemanticObject_ (abstract)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticIntegerArray  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticClass  
     
 A (very rough) pseudo code version of our analysis is as follows
 
