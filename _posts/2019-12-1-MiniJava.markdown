@@ -56,7 +56,7 @@ Below is a (very rough) pseudo code version of our analysis
                         return τ equivalent of λ 
 
 Where `λ` nodes are literals (int, boolean) and non-`λ` nodes are any nontrivial  
-features of the languge (variable use, addition, for loop, etc)
+features of the language (variable use, addition, loops, etc)
 
 Looking back at our Inheritance tree, it's fairly obvious what most of the nodes are  
 _supposed_ to be, and what behaviours should be permitted on them. The only real twist is  
@@ -132,51 +132,51 @@ method below, you see this behavior in action. Three empty lists are passed to a
 instance of `SemanticClass`, which are then passed all the way up to the top of the  
 inheritance chain before the following actions are taken:
 ```java
-    /**
-     * Constructs the vtable for this instance of SemanticClass. If this
-     * instance extends a SemanticClass, this method will invoke itself
-     * on the parent.
-     *
-     * @param indexes a List (which should initially be empty) that will be
-     *                filled with the Signatures of all methods known to this
-     *                SemanticClass (including inherited methods). The indexes
-     *                of the Signatures in @indexes will correspond to an index
-     *                in @vtable.
-     * @param vtable a List which will be filled with all the Methods known to
-     *               this SemanticClass. To determine the index of a method in
-     *               the vtable, find the index of its Signature in @indexes.
-     * @param classNames a list containing the name of the class that a method
-     *                   in @vtable (at the same index) was generated from.
-     */
-    public void constructVtable(List<Signature> indexes,
-                                List<Method> vtable,
-                                List<String> classNames) {
-        int methodIndex;
+/**
+ * Constructs the vtable for this instance of SemanticClass. If this
+ * instance extends a SemanticClass, this method will invoke itself
+ * on the parent.
+ *
+ * @param indexes a List (which should initially be empty) that will be
+ *                filled with the Signatures of all methods known to this
+ *                SemanticClass (including inherited methods). The indexes
+ *                of the Signatures in @indexes will correspond to an index
+ *                in @vtable.
+ * @param vtable a List which will be filled with all the Methods known to
+ *               this SemanticClass. To determine the index of a method in
+ *               the vtable, find the index of its Signature in @indexes.
+ * @param classNames a list containing the name of the class that a method
+ *                   in @vtable (at the same index) was generated from.
+ */
+public void constructVtable(List<Signature> indexes,
+                            List<Method> vtable,
+                            List<String> classNames) {
+    int methodIndex;
+    
+    if (this.getParent() != null) {
+        this.getParent().constructVtable(indexes, vtable, classNames);
+    }
+     
+    // this.getSignatures() gets the methods declared in THIS class.
+    for (Signature currSig : this.getSignatures()) {
+        methodIndex = this.indexOfMethod(currSig);
         
-        if (this.getParent() != null) {
-            this.getParent().constructVtable(indexes, vtable, classNames);
-        }
-         
-        // this.getSignatures() gets the methods declared in THIS class.
-        for (Signature currSig : this.getSignatures()) {
-            methodIndex = this.indexOfMethod(currSig);
-            
-            if (indexes.contains(currSig)) {
-                // If this method signature has already been seen, just update
-                // the pointer at its offset (this is how the compiler handles
-                // overriding).
-                vtable.set(indexes.indexOf(currSig), 
-                           this.vtable.methods.get(methodIndex));
-                classNames.set(indexes.indexOf(currSig), this.getName());
-            } else {
-                // This method signature is new to the vtable, so append it and
-                // move on to the next one.
-                indexes.add(currSig);
-                vtable.add(this.vtable.methods.get(methodIndex));
-                classNames.add(this.getName());
-            }
+        if (indexes.contains(currSig)) {
+            // If this method signature has already been seen, just update
+            // the pointer at its offset (this is how the compiler handles
+            // overriding).
+            vtable.set(indexes.indexOf(currSig), 
+                       this.vtable.methods.get(methodIndex));
+            classNames.set(indexes.indexOf(currSig), this.getName());
+        } else {
+            // This method signature is new to the vtable, so append it and
+            // move on to the next one.
+            indexes.add(currSig);
+            vtable.add(this.vtable.methods.get(methodIndex));
+            classNames.add(this.getName());
         }
     }
+}
 ```
 
 Once a parent `SemanticClass` finishes its work, the child can start up, performing the same  
