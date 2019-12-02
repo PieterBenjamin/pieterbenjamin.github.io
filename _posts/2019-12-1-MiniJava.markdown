@@ -294,19 +294,31 @@ public class Cat extends Animal {}
 
 public class Foo {
     @Default
-    public List<Dog> m1() {
-        return new ArrayList<>();
+    public Dog m1() {
+        return new Dog();
     }
     
-    public List<Cat> m1() {
-        return new ArrayList<>();
+    public Cat m1() {
+        return new Cat();
     }
 }
 
 public class Example {
     public static void main(String[] args) {
         Foo f = new Foo();
-        List<Animal> zooAnimals = f.m1();
+        
+        example1(f);
+        example2(f);
+    }
+    
+    public static void example1(Foo f) {
+        Animal kitty = f.m1();
+    }
+    
+    public static void example2(Foo f) {
+        List<Animal> pets = new ArrayList<>();
+
+        pets.add(f.m1());
     }
 }
 ```
