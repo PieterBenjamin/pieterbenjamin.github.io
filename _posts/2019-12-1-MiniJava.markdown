@@ -36,18 +36,27 @@ _SemanticType_ (abstract)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticIntegerArray  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SemanticClass  
     
-_*"Semantic" prefix included to avoid collisions with Java_
+_* "Semantic" prefix included to avoid collisions with Java_
 
     
-A (very rough) pseudo code version of our analysis is as follows
+Below is a (very rough) pseudo code version of our analysis  
 
     Given a parse tree π, and a type system τ:  
-        ∀ nodes Ν ∈ π  
-        if N is not a leaf node  
-            recurse  
-            use new info for further analysis  
-        else (Ν is a leaf node λ)  
-            return τ equivalent of λ 
+    
+        Build up a record of types from declared classes in π  
+        Make note of all declared field types, and method return types  
+        
+        ∀ classes C ∈ π
+            ∀ methods M ∈ C        
+                ∀ nodes Ν ∈ M
+                    if (N is not a leaf node)  
+                        recurse  
+                        use new info for further analysis  
+                    else (Ν is a leaf node λ)  
+                        return τ equivalent of λ 
+
+Where `λ` nodes are literals (int, boolean) and non-`λ` nodes are any nontrivial  
+features of the languge (variable use, addition, for loop, etc)
 
 Looking back at our Inheritance tree, it's fairly obvious what most of the nodes are  
 _supposed_ to be, and what behaviours should be permitted on them. The only real twist is  
@@ -88,8 +97,8 @@ public class SemanticClass extends SemanticObject {
 
 The `parent` pointer is filled in after a first pass to collect the names of all Classes  
 which exist in the program. Once inheritance relations are checked and recorded, instance  
-variables and methods can be examined. Since our type system is quite small, most checks are  
-very straightforward. The really exciting stuff comes in when you start to analyze  
+variables and methods can be examined. Since our type system is quite small, most checks  
+are very straightforward. The really exciting stuff comes in when you start to analyze  
 method invocations. 
 
 When a parse tree π is being parsed, There is no guarantee for the order of the classes being   
@@ -123,19 +132,51 @@ method below, you see this behavior in action. Three empty lists are passed to a
 instance of `SemanticClass`, which are then passed all the way up to the top of the  
 inheritance chain before the following actions are taken:
 ```java
-if (indexes.contains(currSig)) {
-    // If this method signature has already been seen, just update
-    // the pointer at its offset (this is how the compiler handles
-    // overriding).
-    vtable.set(indexes.indexOf(currSig), this.vtable.methods.get(methodIndex));
-    classNames.set(indexes.indexOf(currSig), this.getName());
-} else {
-    // This method signature is new to the vtable, so append it and
-    // move on to the next one.
-    indexes.add(currSig);
-    vtable.add(this.vtable.methods.get(methodIndex));
-    classNames.add(this.getName());
-}
+    /**
+     * Constructs the vtable for this instance of SemanticClass. If this
+     * instance extends a SemanticClass, this method will invoke itself
+     * on the parent.
+     *
+     * @param indexes a List (which should initially be empty) that will be
+     *                filled with the Signatures of all methods known to this
+     *                SemanticClass (including inherited methods). The indexes
+     *                of the Signatures in @indexes will correspond to an index
+     *                in @vtable.
+     * @param vtable a List which will be filled with all the Methods known to
+     *               this SemanticClass. To determine the index of a method in
+     *               the vtable, find the index of its Signature in @indexes.
+     * @param classNames a list containing the name of the class that a method
+     *                   in @vtable (at the same index) was generated from.
+     */
+    public void constructVtable(List<Signature> indexes,
+                                List<Method> vtable,
+                                List<String> classNames) {
+        int methodIndex;
+        
+        if (this.getParent() != null) {
+            this.getParent().constructVtable(indexes, vtable, classNames);
+        }
+         
+        // this.getSignatures() gets the methods declared in THIS class.
+        for (Signature currSig : this.getSignatures()) {
+            methodIndex = this.indexOfMethod(currSig);
+            
+            if (indexes.contains(currSig)) {
+                // If this method signature has already been seen, just update
+                // the pointer at its offset (this is how the compiler handles
+                // overriding).
+                vtable.set(indexes.indexOf(currSig), 
+                           this.vtable.methods.get(methodIndex));
+                classNames.set(indexes.indexOf(currSig), this.getName());
+            } else {
+                // This method signature is new to the vtable, so append it and
+                // move on to the next one.
+                indexes.add(currSig);
+                vtable.add(this.vtable.methods.get(methodIndex));
+                classNames.add(this.getName());
+            }
+        }
+    }
 ```
 
 Once a parent `SemanticClass` finishes its work, the child can start up, performing the same  
@@ -191,8 +232,10 @@ public Method resolveInvocation(Signature inv) {
     // 2. Filter out all matching Signatures
     tmpIndex = 0;
     for (Signature s : indexes) {
-        // Expected Signature on right side of .equals()
-        if (inv.equals(s)) {
+        // Expected Signature on right side of .equalsSubclass()
+            // note the special equals method which allows actual params to 
+            // be subclasses of the expected parameters.
+        if (inv.equalsSubclass(s)) {
             tmpMag = determineMagnitude(inv, indexes.get(tmpIndex));
             if (tmpMag == minMag) {
                 // Potential error
@@ -273,8 +316,8 @@ when the user was not clear! However, this option does not leave a client with t
 to access the non-default m1 in Foo. This is somewhat unsatisfactory, and it seems a more  
 complex method of annotations would be needed to properly address this issue. But, I've  
 probably run out of time to propose hypothetical scenarios. At any rate, it would certainly  
-be interesting to see how a modern language would manage to implement this additional layer  
-of complexity to overloading.
+be interesting to see how a modern language would manage to implement this additional  
+layer of complexity to overloading.
 
 Thank you for reading this far! Feel free to send me an email if you have any questions about 
 what I've written here. My email should be listed in my resume, linked on my home page :)
