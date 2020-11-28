@@ -1,0 +1,42 @@
+---
+layout: page
+title: "About me"
+date: 2020-11-25
+---
+
+# Hello, World! 
+My name's Pieter. I'm currently a Senior at the University of Washington, where I'm studying Computer Science. Currently my time is shuffled between classes, bicycling, playing guitar, and managing a team for [Impact++](https://sites.google.com/view/udubimpact). After graduation, I'll be joining Tableau in Palo Alto!
+
+In my tasteful headshot on the homepage, you can see my disdain for a cave at the *Craters of the Moon* national park. Going on motorcycle trips with my dad most college Summers has been an awesome way to see the natural beauty of America.
+
+In fall of 2018, I was accepted into the Paul G. Allen school. In Fall of 2019, I finally accepted that a personal website was worth facing my two biggest fears - html and css. Thankfully, [Camille Diez](https://diezcami.github.io/) made this awesome Jekyll template, and my exposure has been minimal.
+
+# Skills
+As an undergraduate student, I hesitate to call myself truly *skilled* in any specific category. But I'm confident in saying I have some domain knowledge in compilers, operating systems, networks, and full stack development in ASP.NET. 
+
+# Books
+When I began college, one of the big surprises I found was the expectation that *I* would be responsible for the majority of my learning. A bigger surprise still was the realization that I always had been. In my experience, reading has been the most effective way to learn and engage in thought. I'd like to list some of my favorite books that I read in college. I'll try to give a concise thought on each one before posing the question I felt each book was most focused on asking.
+
+## Fiction  
+Someone once said to me that they didn't think there was anything to learn from fiction. I couldn't disagree more, and have found that novels have fostered as much personal growth as nonfiction has professional.  
+- [Tortilla Flat](https://www.goodreads.com/book/show/163977.Tortilla_Flat) - A subtle and slow (but short) story following a house of friends. How do humans give meaning to their lives and defeat boredom?
+- [Our Sister Killjoy](https://www.goodreads.com/book/show/231558.Our_Sister_Killjoy) - I think this novel was written as a response to Joseph Conrad's *Heart of Darkness*. What would the colonial narrative look like, inverted and through the eyes of an African student living in Europe? 
+- [The Hitchhiker's Guide to the Galaxy](https://www.goodreads.com/series/40957-the-hitchhiker-s-guide-to-the-galaxy) - A hilarious series with the traditional subversion of tradition found in comedy. How do humans find happiness and confidence in a universe seemingly indifferent to their existence?
+- [One hundred years of Solitude](https://www.goodreads.com/book/show/320.One_Hundred_Years_of_Solitude) -  A biblical allegory following the generations of a single family. What is human nature and what do we share with our ancestors?
+- [The Lord of the Rings](https://www.goodreads.com/series/66175-the-lord-of-the-rings) - Needing little introduction this work asks just about every "stone tower" question about human nature. How does greed manifest and appear in humans?
+
+## Non Fiction (Should Be Required)
+Many of the books I read in college drove home the point that history is written by the victors. I think that there are some serious gaps in the American public education system, and I feel some of these may help begin to close that gap. Or at least, begin to give some direction.
+- [Bad Indians: A Tribal Memoir](https://www.goodreads.com/book/show/15894219-bad-indians?from_search=true&from_srp=true&qid=YMAV3YjAH8&rank=1) - What does American history look like from the perspective of a Native American family?
+- [America is In the Heart](https://www.goodreads.com/book/show/253813.America_Is_in_the_Heart) - How did America greet immigrants from the Philippines in the 20th century? 
+- [Data Feminism](https://www.goodreads.com/book/show/51777543-data-feminism?from_search=true&from_srp=true&qid=nABo6OLn72&rank=1) - What power is held in data? How does this affect those not in places of power? 
+- [Death in the Haymarket](https://www.goodreads.com/book/show/171634.Death_in_the_Haymarket) - Follows the tragic events concerned with a singular labor protest in the 19th century. Where do the labor laws we enjoy today come from?
+- [The Selfish Gene](https://www.goodreads.com/book/show/61535.The_Selfish_Gene) - My father told me when this book was published, it was met with significant push back. I think that modern readers (such as myself) will find it a formalization of thoughts they already agreed with. What is the unit of evolution?
+
+## Non Fiction (Personal Interest)
+These are books which I find extremely interesting, though I would be surprised if everyone else did.
+- [The Soul of a New Machine](https://www.goodreads.com/book/show/7090.The_Soul_of_a_New_Machine) - What do office politics and working on a (very competitive) team look like?
+- [Computer Networks](https://www.goodreads.com/book/show/166190.Computer_Networks) - How do computers communicate? By extension, how does the internet work?
+
+---
+
